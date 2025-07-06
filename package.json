@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "lodash": "^4.17.21",
+    "sass": "^1.89.2",
+    "sass-loader": "^16.0.5",
     "vue": "^3.2.13"
   },
   "devDependencies": {
