@@ -35,6 +35,7 @@ import sortAsc from '@images/ic_asc_sort.svg'
 import sortDesc from '@images/ic_desc_sort.svg'
 
 export default {
+    emits: ['unselected', 'selected'],
     data() {
         return {
             items: [],
@@ -42,7 +43,6 @@ export default {
             headers: [],
             selectedIndex: -1,
             hoverIndex: -1,
-            selectedItem: {},
             isLesserData: false,
             thumbHeight: 0,
             thumbTop: 0,
@@ -113,10 +113,13 @@ export default {
         handleSelect(id) {
             if (this.selectedIndex === id) {
                 this.handleResetSelect();
+                this.$emit('unselected')
             } else {
                 this.selectedIndex = id;
-                this.selectedItem = this.items.find(item => item.userId === id) || {};
+                const result = this.items.find(item => item.userId === id) || {};
+                this.$emit('selected', result)
             }
+
         },
         handleSort(clickedIndex) {
             this.headers = this.headers.map((header, index) => {
@@ -143,7 +146,6 @@ export default {
         },
         handleResetSelect() {
             this.selectedIndex = -1
-            this.selectedItem = {}
         },
         sortColumn(columnName, sortDirection) {
             const sortFactor = sortDirection === 'asc' ? 1 : -1;

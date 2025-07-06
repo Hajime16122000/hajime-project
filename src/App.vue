@@ -26,7 +26,7 @@
         <div class="thumb" :style="{ height: thumbHeight + 'px', top: thumbTop + 'px' }" @mousedown="startDrag"></div>
       </div>
     </div> -->
-    <hajime-table />
+    <hajime-table ref="table" @unselected="handleResetDetail" @selected="handleSelect" />
     <!-- <div class="detail">
       <h3 class="detail__title">Detail</h3>
       <div class="form">
@@ -51,7 +51,7 @@
       <button class="btn btn__reset" @click="handleReset">Reset</button>
       <button class="btn btn__save" :disabled="disabledSave" @click="handleSave">Save</button>
     </div> -->
-    <hajime-detail :selected-item="{}" />
+    <hajime-detail :selected-item="selectedItem" @deleted="handleResetSelect" />
   </div>
 </template>
 <script>
@@ -62,13 +62,19 @@ export default {
   components: { HajimeTable, HajimeDetail },
   data() {
     return {
+      selectedItem: {},
     };
   },
-  computed: {
-  },
-  watch: {
-  },
   methods: {
+    handleResetSelect() {
+      this.$refs.table.handleResetSelect();
+    },
+    handleResetDetail() {
+      this.selectedItem = {}
+    },
+    handleSelect(obj) {
+      this.selectedItem = { ...obj };
+    },
   },
 };
 </script>

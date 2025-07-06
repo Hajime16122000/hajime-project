@@ -2,6 +2,7 @@
     <div class="detail">
         <h3 class="detail__title">Detail</h3>
         <div class="form">
+            <input type="hidden" v-model="detailData.userId">
             <div class="grid__box double">
                 <div class="form__input">
                     <label for="userName">User Name</label>
@@ -11,7 +12,7 @@
             <div class="grid__box">
                 <div class="form__input">
                     <label for="age">Age</label>
-                    <input v-model="detailData.age" class="detail__input" type="text" id="age">
+                    <input v-model.number="detailData.age" class="detail__input" type="text" id="age">
                 </div>
             </div>
             <div class="grid__box double">
@@ -28,11 +29,15 @@
             </div>
         </div>
         <div class="form__btns">
-            <button class="btn btn__del" @click="handleDelete">Delete</button>
-            <button class="btn btn__reset" @click="handleReset">Reset</button>
-            <button class="btn btn__save" :disabled="disabledSave" @click="handleSave">Save</button>
+            <base-button class="btn__del" @click="confirmDelete">Delete</base-button>
+            <base-button class="btn__reset" @click="handleReset">Reset</base-button>
+            <base-button class="btn__save" :disabled="disabledSave" @click="confirmSave">Save</base-button>
         </div>
     </div>
+    <Teleport to="body">
+        <base-modal ref="delModal" @confirm="handleDelete" :message="notiMsg" />
+        <base-modal ref="saveModal" @confirm="handleSave" :message="notiMsg" />
+    </Teleport>
 </template>
 <script>
 import _ from 'lodash';
@@ -52,13 +57,16 @@ export default {
             default: () => { },
         },
     },
+    emits: ['deleted'],
     data() {
         return {
             detailData: {},
+            notiMsg: '',
         };
     },
     computed: {
         disabledSave() {
+            console.log('equal', this.detailData, this.selectedItem);
             return !this.isEmpty(this.selectedItem) ? _.isEqual(this.detailData, this.selectedItem) : false;
         },
         scrollConfig() {
@@ -75,22 +83,41 @@ export default {
             return colsWidth.join(' ');
         },
     },
+    watch: {
+        selectedItem(newVal) {
+            this.detailData = { ...newVal };
+        },
+    },
     methods: {
+        confirmDelete() {
+            this.openDeleteModal('Would you delete?');
+        },
+        confirmSave() {
+            this.openSaveModal('Would you save?');
+        },
         handleDelete() {
             if (!this.isEmpty(this.selectedItem)) {
                 let deleteId = this.selectedItem.userId;
                 this.items = this.items.filter((item) => item.userId !== deleteId);
             }
 
-            this.handleResetSelect();
+            this.$emit('deleted');
+        },
+        handleSave() {
         },
         handleReset() {
             this.detailData = { ...DEFAULT_DETAIL_DATA };
         },
-        handleSave() {
-        },
         isEmpty(obj) {
             return Object.keys(obj).length === 0 && obj.constructor === Object;
+        },
+        openDeleteModal(msg) {
+            this.notiMsg = msg;
+            this.$refs.delModal.open();
+        },
+        openSaveModal(msg) {
+            this.notiMsg = msg;
+            this.$refs.saveModal.open();
         },
     },
 };
@@ -142,11 +169,10 @@ $color_2: black;
                     padding: 0 10px;
                     border: 2px solid #e9e9e9;
                     background: #e9e9e9;
-                    color: $color_1;
+                    color: $color_2;
 
                     &:focus {
                         background: #fff;
-                        color: $color_2;
                     }
                 }
             }
@@ -162,13 +188,14 @@ $color_2: black;
         padding: 12px 6px;
         gap: 12px;
 
-        & .btn {
-            padding: 6px 12px;
-            min-width: 128px;
-            font-size: 1rem;
+        & :deep(.btn) {
             background: #0057fe;
             color: #fff;
-            border: none;
+
+            &.btn__save:disabled {
+                background: #0055f94d;
+                cursor: unset;
+            }
         }
     }
 }
