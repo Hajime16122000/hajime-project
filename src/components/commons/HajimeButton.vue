@@ -14,6 +14,7 @@ export default {
     min-width: 128px;
     font-size: 1rem;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
 }
 </style>
