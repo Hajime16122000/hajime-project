@@ -175,22 +175,21 @@ $background-color_1: #0057fe;
 
 .detail {
   position: relative;
-  border: 1px solid $background-color_1;
-  border-radius: 6px;
-  padding: 20px 10px 10px;
+  background: transparent;
 
   & .detail__title {
-    position: absolute;
-    top: -12px;
-    padding: 0 10px;
+    padding: 6px;
     margin: 0;
-    background: $color_1;
-    color: $background-color_1;
+    background: transparent;
+    color: #fff;
+    border-bottom: 4px solid;
   }
 
   & .form {
     display: grid;
     grid-template-columns: 33.333% 33.333% 33.333%;
+    padding: 4px;
+    margin-top: 4px;
 
     & .grid__box {
       display: grid;
@@ -210,19 +209,23 @@ $background-color_1: #0057fe;
         flex-direction: column;
         gap: 10px;
         width: auto;
+        color: #fff;
 
         & .detail__input {
-          height: 24px;
-          border: none;
           outline: none;
-          padding: 2px 10px;
-          background: #fff;
+          padding: 12px;
+          background: transparent;
           border: 2px solid #e9e9e9;
-          border-radius: 6px;
-          color: $color_2;
+          color: inherit;
+          font-size: .8rem;
 
           &:focus {
-            border: 2px solid $background-color_1;
+            background: #5b7ca5a6;
+          }
+
+          &:-webkit-autofill,
+          &:-webkit-autofill:focus {
+            transition: background-color 0s 600000s, color 0s 600000s !important;
           }
         }
       }
@@ -233,15 +236,18 @@ $background-color_1: #0057fe;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 12px 6px;
+    padding: 12px 6px 0 6px;
     gap: 12px;
 
     & :deep(.btn) {
-      background: #0057fe;
+      border: 2px solid;
+      border-radius: 0;
+      background: #799cd5;
       color: #fff;
 
       &:disabled {
         background: #0055f94d;
+        color: #e9e9e9a6;
         cursor: unset;
       }
     }

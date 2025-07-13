@@ -42,7 +42,7 @@ export const getListItems = (length) => {
 };
 
 export const headers = [
-    { text: 'User ID', value: 'userId', width: '100px', sort: '' },
+    { text: 'User ID', value: 'userId', width: '120px', sort: '' },
     { text: 'User Name', value: 'userName', sort: '' },
     { text: 'Age', value: 'age', width: '80px', sort: '' },
     { text: 'Gender', value: 'gender', width: '120px', sort: '' },

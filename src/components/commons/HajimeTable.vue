@@ -237,12 +237,12 @@ $background-color_1: #0057fe;
 
 .table {
   position: relative;
-  border: 1px solid $background-color_1;
-  border-radius: 6px;
   overflow: hidden;
+  background: transparent;
+  border-bottom: 4px solid #7d8aad;
 
   & .table__header {
-    background-color: $background-color_1;
+    background-color: #93b3f4a6;
     font-weight: bolder;
     color: #fff;
 
@@ -252,7 +252,7 @@ $background-color_1: #0057fe;
   }
 
   & .table__body {
-    height: 400px;
+    height: 335px;
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -263,22 +263,22 @@ $background-color_1: #0057fe;
 
     & .column {
       .cell {
-        color: #000;
+        color: #fff;
 
         &.odd {
-          background-color: #f6f6f6;
+          background-color: #657fa9a6;
         }
 
         &.even {
-          background-color: #e9e9e9;
+          background-color: transparent;
         }
 
         &.selected {
-          background: #85cbe9 !important;
+          background: #5bc1ecba !important;
         }
 
         &.hovered {
-          background: #beddea;
+          background: #85cbe9a6;
         }
       }
     }
@@ -286,9 +286,9 @@ $background-color_1: #0057fe;
 
   & .scrollbar {
     position: absolute;
-    top: 43px;
+    top: 55px;
     bottom: 10px;
-    right: 5px;
+    right: 8px;
     width: 10px;
     background-color: transparent;
     border-radius: 5px;
@@ -314,7 +314,7 @@ $background-color_1: #0057fe;
     .cell {
       position: relative;
       display: flex;
-      padding: 5px;
+      padding: 12px;
       margin: auto;
       user-select: none;
       justify-content: space-between;

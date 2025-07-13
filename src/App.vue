@@ -1,16 +1,25 @@
 <template>
-  <div class="container">
+  <div ref="container" class="container">
     <hajime-list />
     <hajime-detail />
   </div>
 </template>
 <script>
-import HajimeList from './components/HajimeList.vue';
-import HajimeDetail from './components/HajimeDetail.vue';
+import HajimeList from "./components/HajimeList.vue";
+import HajimeDetail from "./components/HajimeDetail.vue";
+import bgImage from "@images/bg_001.jpg";
 
 export default {
   components: { HajimeList, HajimeDetail },
+  mounted() {
+    this.setBackground(bgImage);
+  },
   methods: {
+    setBackground(src) {
+      const body = document.querySelector("body");
+      body.style.background = `url(${src}) 50% 50% no-repeat`;
+      body.style.backgroundSize = "cover";
+    },
   },
 };
 </script>
@@ -30,10 +39,10 @@ body {
   & .container {
     display: flex;
     flex-direction: column;
-    width: 750px;
-    background: #fff;
+    width: 790px;
+    background: rgb(53 51 64 / 48%);
     border-radius: 6px;
-    padding: 10px;
+    padding: 20px;
     margin: 10px auto;
     gap: 12px;
   }
